@@ -1,5 +1,15 @@
 Mongo::Application.routes.draw do
+  get "users/index"
+
+  get "login" =>"sessions#new", :as => "log_in"
+  get "logout" =>"sessions#destroy", :as => "log_out"
+  get "signup" => "users#new", :as => "sign_up"
+
+
+  root :to => "posts#index"
+  resources :users
   resources :posts
+  resources :sessions
 
 
   # The priority is based upon order of creation:

@@ -7,14 +7,15 @@ class Post
   key :permalink, String, :required => true
   key :tags, Array
   timestamps!
+  belongs_to :user, :foreign_key => :author, :class_name => "User"
 
   validates_presence_of :title, :author, :body, :permalink
 
-  before_save :update_tags
+  before_save :tags_to_array
 
   private
 
-  def update_tags
-    @tags = @tags[0].split()
+  def tags_to_array
+    self.tags = @tags[0].split()
   end
 end

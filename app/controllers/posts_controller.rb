@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  skip_before_filter :require_login, :only => [:index, :show]
   # GET /posts
   # GET /posts.json
   def index
@@ -41,6 +42,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
+    @post.author= @current_user.username
 
     respond_to do |format|
       if @post.save
